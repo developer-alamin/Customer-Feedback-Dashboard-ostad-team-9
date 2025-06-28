@@ -21,8 +21,14 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <GuestLayout image="/images/register1.png">
         <Head title="Register" />
+
+        <!-- Signup Form -->
+        <div class="text-center mb-20">
+            <h2 class="text-3xl font-bold text-gray-700">Sign Up</h2>
+            <p class="text-sm text-gray-500">Create a new account using your email and password</p>
+         </div>
 
         <form @submit.prevent="submit">
             <div>
@@ -92,21 +98,23 @@ const submit = () => {
                 />
             </div>
 
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Already registered?
-                </Link>
-
+            <div class="mt-6 w-full">
                 <PrimaryButton
-                    class="ms-4"
+                    class="w-full"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Register
+                    Sign up
                 </PrimaryButton>
+            </div>
+
+            <div class="mt-2 text-center">
+                <Link
+                    :href="route('login')"
+                    class="rounded-md text-sm text-gray-600 underline hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                    You already have an account?
+                </Link>
             </div>
         </form>
     </GuestLayout>
