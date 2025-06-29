@@ -2,7 +2,7 @@
 
 A web-based dashboard application designed to collect, display, and manage customer feedback efficiently. Built with Laravel, Inertia.js, Vue 3, and MySQL, this project is part of a collaborative team effort.
 
-![Customer Feedback Dashboard Logo](https://github.com/developer-alamin/Customer-Feedback-Dashboard-ostad-team-9/blob/master/public/images/Logo.png?raw=true)
+![Customer Feedback Dashboard Logo](https://github.com/developer-alamin/Customer-Feedback-Dashboard-ostad-team-9/blob/master/public/images/project-logo.png?raw=true)
 
 ---
 
