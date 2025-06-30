@@ -1,21 +1,19 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
-import { Link } from "@inertiajs/vue3";
-import { usePage } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 import { LogIn, UserCog, UserPlus } from 'lucide-vue-next';
 
 const { component } = usePage();
 </script>
 
 <template>
-    <header
-        class="flex items-center justify-between py-4 px-3 w-full sm:max-w-6xl mt-8"
-    >
+    <header class="flex items-center justify-between py-4 px-3 w-full sm:max-w-6xl mt-8">
         <!-- Header Logo -->
-        <div class="flex lg:col-start-2 lg:justify-center">
+        <div class="flex items-center justify-center">
             <Link href="/">
-                <ApplicationLogo class="w-52 fill-current text-gray-500" />
+                <ApplicationLogo class="w-52 fill-current text-gray-500 border-r-2 border-[#52e2d9] pr-3" />
             </Link>
+            <p class="text-xl text-[#24aca3] font-semibold pl-3">Pluse 360 Survey</p>
         </div>
 
         <!-- Header Navigation -->

@@ -1,31 +1,32 @@
 <script setup>
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
+import { FileCog } from "lucide-vue-next";
 
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
 
 const form = useForm({
-    current_password: '',
-    password: '',
-    password_confirmation: '',
+    current_password: "",
+    password: "",
+    password_confirmation: "",
 });
 
 const updatePassword = () => {
-    form.put(route('password.update'), {
+    form.put(route("password.update"), {
         preserveScroll: true,
         onSuccess: () => form.reset(),
         onError: () => {
             if (form.errors.password) {
-                form.reset('password', 'password_confirmation');
+                form.reset("password", "password_confirmation");
                 passwordInput.value.focus();
             }
             if (form.errors.current_password) {
-                form.reset('current_password');
+                form.reset("current_password");
                 currentPasswordInput.value.focus();
             }
         },
@@ -36,10 +37,7 @@ const updatePassword = () => {
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">
-                Update Password
-            </h2>
-
+            <h2 class="text-lg font-semibold text-gray-700">Update Password</h2>
             <p class="mt-1 text-sm text-gray-600">
                 Ensure your account is using a long, random password to stay
                 secure.
@@ -100,8 +98,17 @@ const updatePassword = () => {
                 />
             </div>
 
-            <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+            <div class="flex flex-col items-center gap-4">
+                <button
+                    type="submit"
+                    :disabled="form.processing"
+                    class="text-md w-full cursor-pointer rounded-md border bg-blue-50 px-4 py-2 transition-all duration-200 hover:bg-blue-700 text-blue-700 font-semibold hover:text-white"
+                >
+                    <span v-if="form.processing">Updating...</span>
+                    <span v-else class="flex items-center justify-center">
+                        <FileCog class="mr-2 w-5 h-5" /> Update Password</span
+                    >
+                </button>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -113,7 +120,7 @@ const updatePassword = () => {
                         v-if="form.recentlySuccessful"
                         class="text-sm text-gray-600"
                     >
-                        Saved.
+                        Updated your password successfully.
                     </p>
                 </Transition>
             </div>

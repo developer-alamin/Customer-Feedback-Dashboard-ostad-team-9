@@ -13,14 +13,12 @@ const props = defineProps({
 </script>
 
 <template>
-    <div
-        class="flex min-h-screen flex-col items-center bg-gray-50 pt-6 sm:pt-0"
-    >
+    <div class="flex min-h-screen flex-col items-center bg-gray-50 pt-6 sm:pt-0">
         <!-- Page Header -->
         <GuestHeader />
 
         <!-- Main Content -->
-        <div class="w-full sm:max-w-6xl flex items-center bg-[#d3efe3] rounded-md shadow-lg">
+        <div class="w-full sm:max-w-6xl flex items-center bg-[#d3efe3] rounded-md shadow-lg mb-5">
             <!-- Left Side for image -->
             <div class="w-3/5">
                 <img
@@ -32,9 +30,7 @@ const props = defineProps({
 
             <!-- Right Side for form -->
             <div class="w-2/5 px-6 py-20 bg-white flex flex-col items-center rounded-r-md">
-                <div
-                    class="mt-6 w-full overflow-hidden px-6 py-4"
-                >
+                <div class="mt-6 w-full overflow-hidden px-6 py-4">
                     <slot />
                 </div>
             </div>
