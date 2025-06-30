@@ -57,6 +57,12 @@ Developed by Team 9 - Ostad Bootcamp:
 - [Developer Alamin](https://github.com/developer-alamin)
 - [Mahmud Hasan](https://github.com/mahmud2024hasan)
 - [Azmol Hossain](https://github.com/theictpark)
+- [Fazle Rabbi](https://github.com/aleyarashid)
+- [Fazle Rabbi](https://github.com/aleyarashid)
+- [bokor3288](https://github.com/bokor3288)
+- [Fahmida Shormi](https://github.com/fahmida01)
+- [Resma Ani](https://github.com/ResmaAni)
+- [Shifkat Ahamed Siddiqui](https://github.com/shifkat)
 
 ## 📄 License
 This project is open-source and free to use for educational and non-commercial purposes.
