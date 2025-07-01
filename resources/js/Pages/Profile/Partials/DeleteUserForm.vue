@@ -65,11 +65,11 @@ const closeModal = () => {
         </header>
 
         <!-- Delete Account Button -->
-        <Button
+        <button
             @click="confirmUserDeletion"
             class="flex items-center justify-center gap-2 rounded-md p-2 w-full cursor-pointer bg-red-100 text-red-600 hover:bg-red-700 hover:text-white text-md font-semibold"
         >
-            <Trash2 class="h-5 w-5" /> Delete account</Button
+            <Trash2 class="h-5 w-5" /> Delete account</button
         >
 
         <!-- Delete Account Confirmation Modal -->

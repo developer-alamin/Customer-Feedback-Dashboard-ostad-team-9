@@ -1,7 +1,7 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import GuestHeader from "@/Components/GuestHeader.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, Head } from "@inertiajs/vue3";
 
 // Define the props
 const props = defineProps({
@@ -13,6 +13,11 @@ const props = defineProps({
 </script>
 
 <template>
+    <!-- Favicon icon -->
+    <Head>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+    </Head>
+
     <div class="flex min-h-screen flex-col items-center bg-gray-50 pt-6 sm:pt-0">
         <!-- Page Header -->
         <GuestHeader />
