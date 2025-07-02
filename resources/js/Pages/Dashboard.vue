@@ -73,46 +73,7 @@ const props = defineProps({
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3" >
-                    <div class="card card-plain h-100 bg-white p-3 text-center">
-                        <p class="mb-2 text-sm text-gray-500">Survey Send</p>
-                        <h2 class="mb-0 text-capitalize font-weight-bold">
-                             <span id="product">60</span>
-                         </h2>
-                                    
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card card-plain h-100 bg-white p-3 text-center">
-                        <p class="mb-2 text-sm text-gray-500">Response Received</p>
-                        <h2 class=" mb-0 text-capitalize font-weight-bold">
-                             <span id="product">42</span>
-                         </h2>
-                                    
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card card-plain h-100 bg-white p-3 text-center">
-                        <p class="mb-2 text-sm text-gray-500">Response Pending</p>
-                        <h2 class="mb-0 text-capitalize font-weight-bold">
-                             <span id="product">12</span>
-                         </h2>
-                                    
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card card-plain h-100 bg-white p-3 text-center">
-                        <p class="mb-2 text-sm text-gray-500">Customer Excluded</p>
-                        <h2 class="mb-0 text-capitalize font-weight-bold">
-                             <span id="product">06</span>
-                         </h2>
-                                    
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </AuthenticatedLayout>
 </template>
 
