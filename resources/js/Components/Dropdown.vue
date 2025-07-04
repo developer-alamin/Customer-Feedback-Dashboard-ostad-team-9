@@ -45,7 +45,7 @@ const open = ref(false);
 </script>
 
 <template>
-    <div class="relative h-full flex items-center">
+    <div class="relative">
         <div @click="open = !open" class="h-full flex items-center">
             <slot name="trigger" />
         </div>

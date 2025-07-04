@@ -67,7 +67,7 @@ onMounted(() => {
 
                     <!-- User Dropdown -->
                     <div class="relative ms-3 h-full flex items-center">
-                        <Dropdown align="right" width="48" class="h-full flex items-center">
+                        <Dropdown align="right" width="48">
                             <template #trigger>
                                 <span class="inline-flex rounded-md">
                                     <button
