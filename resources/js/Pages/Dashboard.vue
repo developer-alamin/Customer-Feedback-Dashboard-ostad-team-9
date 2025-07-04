@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import RightSidebar from "@/Components/RightSidebar/RightSidebar.vue";
+import MiddleCards from "@/Components/DashboardCards/MiddleCards.vue";
 import { Head } from "@inertiajs/vue3";
 
 // Props from backend
@@ -19,7 +20,15 @@ const props = defineProps({
                 
                 <!-- Left Side : Main Content Area -->
                 <div class="w-[73%] overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                    <!-- Page Heading Area -->
                     <div class="p-6 text-gray-900">You're logged in!</div>
+
+                    <!-- Statistics Area -->
+                    <!-- Top 3 Cards Area -->
+                    <!-- Middle 3 Cards Area -->
+                    <MiddleCards />
+
+                    <!-- Last 3 Cards Area -->
                 </div>
 
                 <!-- Right Side : Questions Answer Area -->
