@@ -22,50 +22,37 @@ const props = defineProps({
 
                     <div class="p-6 text-gray-900">You're logged in!</div>
 
+                    <!-- Statistics Area -->
                     <div class="container">
                         <div class="row">
                             <div class="col-md-3" >
                                 <div class="card card-plain h-100 bg-white p-3 text-center">
-                                    <p class="mb-2 text-sm text-gray-500">Survey Send</p>
-                                    <h2 class="mb-0 text-capitalize font-weight-bold">
-                                        <span id="product">60</span>
-                                    </h2>
-                                                
+                                    <p class="mb-4 text-lg font-semibold text-gray-400">Survey Send</p>
+                                    <p class="text-5xl font-bold text-[#252733]">60</p>          
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="card card-plain h-100 bg-white p-3 text-center">
-                                    <p class="mb-2 text-sm text-gray-500">Response Received</p>
-                                    <h2 class=" mb-0 text-capitalize font-weight-bold">
-                                        <span id="product">42</span>
-                                    </h2>
-                                                
+                                    <p class="mb-4 text-lg font-semibold text-gray-400">Response Received</p>
+                                    <p class="text-5xl font-bold text-[#138F58]">42</p>          
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="card card-plain h-100 bg-white p-3 text-center">
-                                    <p class="mb-2 text-sm text-gray-500">Response Pending</p>
-                                    <h2 class="mb-0 text-capitalize font-weight-bold">
-                                        <span id="product">12</span>
-                                    </h2>
-                                                
+                                    <p class="mb-4 text-lg font-semibold text-gray-400">Response Pending</p>
+                                    <p class="text-5xl font-bold text-[#CE9F0F]">12</p>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="card card-plain h-100 bg-white p-3 text-center">
-                                    <p class="mb-2 text-sm text-gray-500">Customer Excluded</p>
-                                    <h2 class="mb-0 text-capitalize font-weight-bold">
-                                        <span id="product">06</span>
-                                    </h2>
-                                                
+                                    <p class="mb-4 text-lg font-semibold text-gray-400">Customer Excluded</p>
+                                    <p class="text-5xl font-bold text-[#C63E13]">06</p>               
                                 </div>
                             </div>
                         </div>
                     </div>
                     
                 </div>
-
-                
 
                 <!-- Right Side : Questions Answer Area -->
                 <div class="w-[27%]">
