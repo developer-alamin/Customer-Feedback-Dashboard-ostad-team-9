@@ -3,25 +3,40 @@ import AppHeader from "@/Components/AppHeader.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
-import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { BellDot, Search } from "lucide-vue-next";
 import { Link, usePage } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 const showingNavigationDropdown = ref(false);
+const isScrolled = ref(false);
+
+// Track scroll position
+onMounted(() => {
+    window.addEventListener("scroll", () => {
+        isScrolled.value = window.scrollY > 10;
+    });
+});
 </script>
 
 <template>
-    <nav class="border-b border-gray-100 bg-white shadow-md">
+    <nav
+        :class="[
+            'sticky top-0 z-50 border-b border-gray-100 bg-white shadow-md transition-all duration-300',
+            isScrolled ? 'py-1 h-16' : 'py-2 h-20'
+        ]"
+    >
         <!-- Primary Navigation Menu -->
-        <div class="mx-auto max-w-7xl py-2 px-4 sm:px-6 lg:px-8">
-            <div class="flex h-20 justify-between">
+        <div class="mx-auto max-w-7xl h-full px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-full">
                 <!--App Logo -->
                 <div class="flex shrink-0 items-center">
                     <Link :href="route('dashboard')">
                         <ApplicationLogo
-                            class="block h-16 w-auto fill-current text-gray-800"
+                            :class="[
+                                isScrolled ? 'h-10' : 'h-14',
+                                'w-auto block fill-current text-gray-800 transition-all duration-300'
+                            ]"
                         />
                     </Link>
                 </div>
@@ -29,10 +44,7 @@ const showingNavigationDropdown = ref(false);
                 <!-- Search Area -->
                 <div class="hidden md:flex md:items-center">
                     <div class="relative group">
-                        <!-- Search icon -->
                         <Search class="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-gray-400 pointer-events-none" />
-
-                        <!-- Input -->
                         <input
                             type="search"
                             name="search"
@@ -44,9 +56,9 @@ const showingNavigationDropdown = ref(false);
                 </div>
 
                 <!-- User Menu -->
-                <div class="hidden sm:ms-6 sm:flex sm:items-center">
+                <div class="hidden sm:ms-6 sm:flex sm:items-center sm:justify-center h-full">
                     <!-- Notifications Icon -->
-                    <div class="relative ms-3 mr-5">
+                    <div class="relative ms-3 mr-5 h-full flex items-center">
                         <button class="flex items-center">
                             <span class="sr-only">Notifications</span>
                             <BellDot class="w-6 h-6 text-gray-400 hover:text-[#2a8d86]" />
@@ -54,21 +66,22 @@ const showingNavigationDropdown = ref(false);
                     </div>
 
                     <!-- User Dropdown -->
-                    <div class="relative ms-3">
-                        <Dropdown align="right" width="48">
+                    <div class="relative ms-3 h-full flex items-center">
+                        <Dropdown align="right" width="48" class="h-full flex items-center">
                             <template #trigger>
                                 <span class="inline-flex rounded-md">
-                                    <!-- User Image -->
                                     <button
                                         type="button"
                                         class="inline-flex items-center rounded-md border border-transparent bg-white text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none cursor-pointer"
                                     >
                                         <img
-                                            class="h-16 w-16 rounded-full ring ring-gray-200 border-2 border-white"
+                                            :class="[
+                                                isScrolled ? 'w-10 h-10' : 'w-14 h-14', 
+                                                'rounded-full ring ring-gray-200 border-2 border-white transition-all duration-300']"
                                             :src="
                                                 $page.props.auth.user?.profile?.image
-                                                ? '/storage/' + $page.props.auth.user.profile.image
-                                                : '/male-profile-avatar.png'
+                                                    ? '/storage/' + $page.props.auth.user.profile.image
+                                                    : '/male-profile-avatar.png'
                                             "
                                             :alt="$page.props.auth.user.name"
                                         />
@@ -103,18 +116,10 @@ const showingNavigationDropdown = ref(false);
                 <!-- Hamburger : Icon for mobile menu -->
                 <div class="-me-2 flex items-center sm:hidden">
                     <button
-                        @click="
-                            showingNavigationDropdown =
-                                !showingNavigationDropdown
-                        "
+                        @click="showingNavigationDropdown = !showingNavigationDropdown"
                         class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
                     >
-                        <svg
-                            class="h-6 w-6"
-                            stroke="currentColor"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                        >
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                             <path
                                 :class="{
                                     hidden: showingNavigationDropdown,
