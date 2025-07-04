@@ -18,12 +18,12 @@ const props = defineProps({
             <div class="flex justify-between gap-8">
                 
                 <!-- Left Side : Main Content Area -->
-                <div class="w-[73%] overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                <div class="w-[75%] overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">You're logged in!</div>
                 </div>
 
                 <!-- Right Side : Questions Answer Area -->
-                <div class="w-[27%]">
+                <div class="w-[25%]">
                     <RightSidebar :questions="questions" />
                 </div>
             </div>
