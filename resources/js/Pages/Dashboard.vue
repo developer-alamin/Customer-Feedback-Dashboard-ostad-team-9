@@ -41,7 +41,7 @@ const greeting = computed(() => {
             <div class="flex justify-between gap-8">
                 
                 <!-- Left Side : Main Content Area -->
-                <div class="w-[73%] overflow-hidden">
+                <div class="w-[75%] overflow-hidden">
                     <!-- Page Heading Area -->
                     <div class="flex justify-between items-center py-6">
                         <!-- Greeting Area -->
@@ -71,7 +71,7 @@ const greeting = computed(() => {
                 </div>
 
                 <!-- Right Side : Questions Answer Area -->
-                <div class="w-[27%]">
+                <div class="w-[25%]">
                     <RightSidebar :questions="questions" />
                 </div>
             </div>
