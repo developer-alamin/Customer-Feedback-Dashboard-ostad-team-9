@@ -3,6 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import RightSidebar from "@/Components/RightSidebar/RightSidebar.vue";
 import MiddleRowCards from "@/Components/DashboardCards/MiddleRowCards.vue";
 import BottomRowCards from "@/Components/DashboardCards/BottomRowCards.vue";
+import StatisticsCards from "@/Components/DashboardCards/StatisticsCards.vue";
 import { Head } from "@inertiajs/vue3";
 
 // Props from backend
@@ -25,7 +26,10 @@ const props = defineProps({
                     <div class="p-6 text-gray-900">You're logged in!</div>
 
                     <!-- Statistics Area -->
+                    <StatisticsCards class="mb-5"/>
+
                     <!-- Top 3 Cards Area -->
+                     
                     <!-- Middle 3 Cards Area -->
                     <MiddleRowCards />
 
