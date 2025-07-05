@@ -19,7 +19,7 @@ const props = defineProps({
                 
                 <!-- Left Side : Main Content Area -->
                 <div class="w-[75%] overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">You're logged in!</div>
+                    
                 </div>
 
                 <!-- Right Side : Questions Answer Area -->
