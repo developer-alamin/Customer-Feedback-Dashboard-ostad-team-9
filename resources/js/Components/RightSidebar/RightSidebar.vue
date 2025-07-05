@@ -21,7 +21,7 @@ function getChartComponent(type) {
 <template>
   <div class="w-full flex items-center justify-center">
     <Move class="h-6 w-6 text-gray-400" />
-    <h1 class="p-4 text-gray-800 text-3xl font-bold">
+    <h1 class="p-4 text-gray-800 text-[28px] font-bold">
       Questions <span class="text-gray-500">Answer</span>
     </h1>
   </div>
