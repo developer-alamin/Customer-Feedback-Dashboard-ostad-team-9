@@ -1,7 +1,8 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import RightSidebar from "@/Components/RightSidebar/RightSidebar.vue";
-import MiddleCards from "@/Components/DashboardCards/MiddleCards.vue";
+import MiddleRowCards from "@/Components/DashboardCards/MiddleRowCards.vue";
+import BottomRowCards from "@/Components/DashboardCards/BottomRowCards.vue";
 import { Head } from "@inertiajs/vue3";
 
 // Props from backend
@@ -19,16 +20,17 @@ const props = defineProps({
             <div class="flex justify-between gap-8">
                 
                 <!-- Left Side : Main Content Area -->
-                <div class="w-[73%] overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                <div class="w-[73%] overflow-hidden">
                     <!-- Page Heading Area -->
                     <div class="p-6 text-gray-900">You're logged in!</div>
 
                     <!-- Statistics Area -->
                     <!-- Top 3 Cards Area -->
                     <!-- Middle 3 Cards Area -->
-                    <MiddleCards />
+                    <MiddleRowCards />
 
                     <!-- Last 3 Cards Area -->
+                    <BottomRowCards />
                 </div>
 
                 <!-- Right Side : Questions Answer Area -->

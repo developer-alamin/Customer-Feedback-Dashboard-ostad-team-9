@@ -33,7 +33,6 @@ const csatProgress = [
   { value: 14, label: 'Quality of Deliverable' },
   { value: 46, label: 'Program Governance' },
   { value: 54, label: 'New Ideas & Creative' },
-  { value: 0, label: 'Solution' }
 ];
 
 const csatDoughnutData = {
@@ -41,7 +40,7 @@ const csatDoughnutData = {
   datasets: [
     {
       data: [25, 75],
-      backgroundColor: ['#0db5a6', '#f0fdfa'],
+      backgroundColor: ['#27B3AA', '#E4E4E4'],
       borderWidth: 0,
       cutout: '75%'
     }
@@ -49,12 +48,14 @@ const csatDoughnutData = {
 };
 
 const csatDoughnutOptions = {
+  cutout: '70%', 
   responsive: true,
-  maintainAspectRatio: false,
+  rotation: -90, 
+  circumference: 180, 
   plugins: {
     legend: { display: false },
-    tooltip: { enabled: false }
-  }
+    tooltip: { enabled: false },
+  },
 };
 
 const csatCenterText = {
@@ -165,18 +166,21 @@ const topAccountsOptions = {
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <!-- CSAT Score -->
     <div class="bg-white p-4 rounded-2xl shadow-md">
-      <h2 class="text-sm font-semibold text-gray-500 mb-3">CSAT Score</h2>
-      <div class="h-40 w-40 mx-auto relative">
+      <h2 class="text-sm font-semibold text-gray-700 mb-3">CSAT Score</h2>
+      
+      <div class="h-48 w-48 overflow-hidden mx-auto relative mt-[-40px]">
         <Doughnut :data="csatDoughnutData" :options="csatDoughnutOptions" :plugins="[csatCenterText]" />
-        <div class="absolute inset-0 flex items-end justify-center text-[10px] text-gray-400 pb-2">
-          ▲ 25.00% Current Year | Last Year
+        <div class="absolute top-16 inset-0 flex flex-col items-center justify-center text-[10px] text-gray-400 pb-2">
+          <p class="text-[#0db5a6] text-sm py-1"> ▲ 25.00% </p>
+          <p class="text-gray-600">Current Year | Last Year</p>
         </div>
       </div>
-      <div class="grid grid-cols-3 gap-3 mt-6 text-[11px] text-gray-600">
+      
+      <div class="grid grid-cols-3 gap-3 text-[11px] text-gray-600 mt-[-16px]">
         <div v-for="(item, index) in csatProgress" :key="index" class="text-center flex flex-col items-center">
           <div class="w-16 h-8 relative">
             <Doughnut :data="getHalfDoughnut(item.value)" :options="{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: false } } }" />
-            <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-[#0db5a6]">
+            <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-[#0db5a6] pt-4">
               {{ item.value }}%
             </div>
           </div>
@@ -187,16 +191,16 @@ const topAccountsOptions = {
 
     <!-- CSAT Trend -->
     <div class="bg-white p-4 rounded-2xl shadow-md">
-      <h2 class="text-sm font-semibold text-gray-500 mb-3">CSAT Trend</h2>
-      <div class="h-48">
+      <h2 class="text-sm font-semibold text-gray-700 mb-3">CSAT Trend</h2>
+      <div class="h-64">
         <Line :data="csatTrendData" :options="csatTrendOptions" />
       </div>
     </div>
 
     <!-- Top Accounts -->
     <div class="bg-white p-4 rounded-2xl shadow-md">
-      <h2 class="text-sm font-semibold text-gray-500 mb-3">Top Accounts</h2>
-      <div class="h-48">
+      <h2 class="text-sm font-semibold text-gray-700 mb-3">Top Accounts</h2>
+      <div class="h-64">
         <Bar :data="topAccountsData" :options="topAccountsOptions" />
       </div>
     </div>
