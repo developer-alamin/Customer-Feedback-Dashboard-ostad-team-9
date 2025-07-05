@@ -1,172 +1,251 @@
 <script setup>
-import { Doughnut, Bar } from 'vue-chartjs';
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-  BarElement,
-  CategoryScale,
-  LinearScale
-} from 'chart.js';
+import { ref, onMounted } from 'vue';
+import { Chart, registerables } from 'chart.js';
+import { ThumbsUp, ThumbsDown, Hand } from 'lucide-vue-next';
 
-ChartJS.register(Title, Tooltip, Legend, ArcElement, BarElement, CategoryScale, LinearScale);
+Chart.register(...registerables);
 
-const cspScore = 7.96;
+// Data for the first card
+const metricsData = ref([
+  { label: 'Deliverable', score: 2.5, color: '#27B3AA' }, // Tailwind's green-400
+  { label: 'Customer Experience', score: 3.7, color: '#94DCBC' }, // Tailwind's emerald-400
+  { label: 'Delivery Culture', score: 4.0, color: '#27B3AA' }, // Tailwind's green-500
+  { label: 'Value Adds', score: 2.0, color: '#147B4D' },
+  { label: 'Infrastructure', score: 1.0, color: '#147B4D' }
+]);
 
-const cspChartData = {
-  labels: ['Current', 'Remaining'],
-  datasets: [
-    {
-      data: [cspScore, 10 - cspScore],
-      backgroundColor: ['#0db5a6', '#f0fdfa'],
-      borderWidth: 0,
-      cutout: '75%'
+// Helper function to calculate bar width
+const getBarWidth = (score, max) => {
+  return (score / max) * 100 + '%';
+};
+
+// Function to create CSP Score Chart
+const createCspChart = () => {
+  const ctx = document.getElementById('cspChart');
+  if (!ctx) return;
+  
+  const centerTextPlugin = {
+    id: 'centerText',
+    afterDraw: (chart) => {
+      const { ctx, chartArea: { top, bottom, left, right, width, height } } = chart;
+      ctx.save();
+      const centerX = (left + right) / 2;
+      const centerY = (top + bottom) / 2;
+      
+      ctx.fillStyle = '#1f2937'; // text-gray-800
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      ctx.font = 'bold 20px ui-sans-serif, system-ui';
+      ctx.fillText('28', centerX, centerY - 10);
+      
+      ctx.font = '12px ui-sans-serif, system-ui';
+      ctx.fillText('Oct', centerX, centerY + 10);
+      ctx.restore();
     }
-  ]
-};
+  };
 
-const cspChartOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: { display: false },
-    tooltip: { enabled: false }
-  }
-};
-
-const cspCenterText = {
-  id: 'cspCenterText',
-  beforeDraw(chart) {
-    const { width, height } = chart;
-    const ctx = chart.ctx;
-    ctx.restore();
-    ctx.font = 'bold 20px Inter';
-    ctx.fillStyle = '#0db5a6';
-    ctx.textBaseline = 'middle';
-    const text = cspScore.toFixed(2);
-    const textX = (width - ctx.measureText(text).width) / 2;
-    const textY = height / 2;
-    ctx.fillText(text, textX, textY);
-    ctx.save();
-  }
-};
-
-const chartHeaderData = {
-  labels: ['FY24-Q1', 'FY24-Q2', 'FY24-Q3', 'FY24-Q4'],
-  datasets: [
-    {
-      label: 'CSAT',
-      data: [7.5, 8.0, 7.2, 7.8],
-      backgroundColor: '#0db5a6',
-      borderRadius: 4,
-      barThickness: 18
-    }
-  ]
-};
-
-const chartHeaderOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: { display: false },
-    tooltip: { enabled: true }
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-      ticks: {
-        font: { size: 10 }
-      }
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: [70, 20, 10],
+        backgroundColor: ['#27B3AA', '#94DCBC', '#E4E4E4'],
+        borderColor: '#ffffff',
+        borderWidth: 4,
+        cutout: '75%',
+      }]
     },
-    x: {
-      ticks: {
-        font: { size: 10 }
-      }
-    }
-  }
-};
-
-const npsScore = 26;
-const npsChartData = {
-  labels: ['Promoters', 'Passives', 'Detractors'],
-  datasets: [
-    {
-      label: 'NPS',
-      data: [45, 29, 18],
-      backgroundColor: ['#10b981', '#fbbf24', '#ef4444'],
-      borderRadius: 4,
-      barThickness: 18
-    }
-  ]
-};
-
-const npsOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      position: 'bottom',
-      labels: { boxWidth: 12, font: { size: 10 } }
-    }
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-      grid: { drawBorder: false },
-      ticks: { stepSize: 10, font: { size: 10 } }
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false },
+      },
+      rotation: -30,
     },
-    x: {
-      grid: { display: false },
-      ticks: { font: { size: 10 } }
-    }
-  }
+    plugins: [centerTextPlugin],
+  });
 };
+
+// Function to create NPS Score Chart
+const createNpsChart = () => {
+  const ctx = document.getElementById('npsChart');
+  if (!ctx) return;
+  const npsScore = 78;
+
+  const gaugeNeedlePlugin = {
+    id: 'gaugeNeedle',
+    afterDatasetDraw: (chart) => {
+      const { ctx, chartArea } = chart;
+      ctx.save();
+      
+      const score = npsScore;
+      const total = 200;
+      const angle = Math.PI + (1 / total) * (score + 100) * Math.PI;
+
+      const cx = chartArea.left + (chartArea.right - chartArea.left) / 2;
+      const cy = chartArea.bottom;
+
+      ctx.translate(cx, cy);
+      ctx.rotate(angle);
+      ctx.beginPath();
+      ctx.moveTo(0, -5);
+      ctx.lineTo(chart.innerRadius - 10, 0);
+      ctx.lineTo(0, 5);
+      ctx.fillStyle = '#1f2937'; // text-gray-800
+      ctx.fill();
+      ctx.rotate(-angle);
+      
+      ctx.beginPath();
+      ctx.arc(0, 0, 10, 0, 2 * Math.PI);
+      ctx.fill();
+      
+      ctx.restore();
+    }
+  };
+  
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Bad', 'Passive', 'Good'],
+      datasets: [{
+        data: [100, 80, 20],
+        backgroundColor: ['#ef4444', '#f59e0b', '#22c55e'], // red-500, amber-500, green-500
+        borderWidth: 0,
+        circumference: 180,
+        rotation: 270,
+        cutout: '70%',
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false },
+      },
+      layout: { padding: { bottom: 20 } }
+    },
+    plugins: [gaugeNeedlePlugin],
+  });
+};
+
+
+onMounted(() => {
+  // Use nextTick to ensure canvas elements are available
+  import('vue').then(({ nextTick }) => {
+    nextTick(() => {
+      createCspChart();
+      createNpsChart();
+    });
+  });
+});
 </script>
-
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-    <!-- Chart Header -->
-    <div class="bg-white p-4 rounded-2xl shadow-md">
-      <div class="flex justify-between items-center mb-2">
-        <h2 class="text-sm font-semibold text-gray-600">Chart Header</h2>
-        <span class="text-[10px] text-green-600 font-medium">▲ 12.00%</span>
-      </div>
-      <div class="h-40">
-        <Bar :data="chartHeaderData" :options="chartHeaderOptions" />
-      </div>
-    </div>
-    
-    <!-- CSP Score -->
-    <div class="bg-white p-4 rounded-2xl shadow-md">
-      <div class="flex justify-between items-center mb-2">
-        <h2 class="text-sm font-semibold text-gray-600">CSP Score</h2>
-        <span class="text-[10px] text-green-600 font-medium">▲ 26.00%</span>
-      </div>
-      <div class="h-40 w-40 mx-auto relative">
-        <Doughnut :data="cspChartData" :options="cspChartOptions" :plugins="[cspCenterText]" />
-      </div>
-      <p class="text-[10px] text-center text-gray-500 mt-2">Current Year | Last Year</p>
-    </div>
+  <div class="font-sans">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-    <!-- NPS Score -->
-    <div class="bg-white p-4 rounded-2xl shadow-md">
-      <div class="flex justify-between items-center mb-2">
-        <h2 class="text-sm font-semibold text-gray-600">NPS Score</h2>
-        <span class="text-[10px] text-green-600 font-medium">▲ 18.00%</span>
+      <!-- Card 1: Chart Header -->
+      <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+        <h2 class="text-md font-semibold text-gray-800 mb-4">Chart Header</h2>
+        <div class="flex flex-col gap-5">
+          <div v-for="metric in metricsData" :key="metric.label" class="flex flex-col gap-2">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full" :style="{ backgroundColor: metric.color }"></span>
+                <span class="text-xs text-gray-600">{{ metric.label }}</span>
+              </div>
+              <span class="text-xs text-gray-500 min-w-[40px] text-right">{{ metric.score }} / 5</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="flex-grow h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div class="h-full rounded-full" :style="{ width: getBarWidth(metric.score, 5), backgroundColor: metric.color }"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="h-40">
-        <Bar :data="npsChartData" :options="npsOptions" />
+
+      <!-- Card 2: CSP Score -->
+      <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+        <div class="flex justify-between items-center mb-2">
+          <h2 class="text-md font-semibold text-gray-800">CSP Score</h2>
+          <a href="#" class="text-xs text-gray-500 hover:underline">View Details</a>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-gray-500 text-md cursor-pointer"><</span>
+          <span class="text-xs font-medium text-[#229f97]">Product Engineering Infrastructure</span>
+          <span class="text-gray-500 text-md cursor-pointer">></span>
+        </div>
+        <div class="relative h-[150px] w-full mx-auto">
+          <canvas id="cspChart"></canvas>
+        </div>
+        <div class="flex justify-around mt-5">
+          <div class="flex flex-col items-center text-sm text-gray-700">
+            <span>Good</span>
+            <div class="flex items-center gap-1 text-xs">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#27B3AA]"></span>
+              <span class="font-semibold text-gray-700">70%</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-center gap-1 text-sm text-gray-700">
+            <span>Average</span>
+            <div class="flex items-center gap-1 text-xs">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#94DCBC]"></span>
+              <span class="font-semibold text-gray-700">20%</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-center gap-1 text-sm text-gray-700">
+            <span>Bad</span>
+            <div class="flex items-center gap-1 text-xs">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#E4E4E4]"></span>
+              <span class="font-semibold text-gray-700">10%</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <p class="mt-2 text-center text-sm font-bold text-[#0db5a6]">{{ npsScore }}%</p>
+
+      <!-- Card 3: NPS Score -->
+      <div class="bg-white rounded-lg shadow-md p-5 flex flex-col justify-between">
+        <div>
+          <h2 class="text-md font-semibold text-gray-800 mb-1">NPS Score</h2>
+          <p class="text-[13px] text-gray-500 -mt-1">NPS Score is +78</p>
+        </div>
+        
+        <div class="relative h-[120px] w-full mt-5">
+          <canvas id="npsChart"></canvas>
+        </div>
+        <div class="flex justify-between items-start mt-4 px-2.5">
+          <div class="flex flex-col items-center text-center gap-1">
+            <!-- Promoter Icon (Thumbs Up) -->
+             <div class="flex items-center">
+                <ThumbsUp class="h-4 w-4 text-[#B00E0E] mr-2" />
+                <span class="text-xs font-semibold text-gray-800">60%</span>
+             </div>
+            <span class="text-xs text-gray-500">Promoter</span>
+          </div>
+          <div class="flex flex-col items-center text-center gap-1">
+            <!-- Passive Icon (Hand) -->
+            <div class="flex items-center">
+                <Hand class="h-4 w-4 text-[#FCC419] mr-2" />
+                <span class="text-xs font-semibold text-gray-800">28%</span>
+             </div>
+            <span class="text-xs text-gray-500">Passive</span>
+          </div>
+          <div class="flex flex-col items-center text-center gap-1">
+            <!-- Detractor Icon (Thumbs Down) -->
+            <div class="flex items-center">
+                <ThumbsDown class="h-4 w-4 text-[#27B3AA] mr-2" />
+                <span class="text-xs font-semibold text-gray-800">12%</span>
+             </div>
+            <span class="text-xs text-gray-500">Detractor</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
 
-<style scoped>
-canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-</style>
