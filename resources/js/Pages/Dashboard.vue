@@ -1,15 +1,34 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import RightSidebar from "@/Components/RightSidebar/RightSidebar.vue";
+import TopRowCards from "@/Components/DashboardCards/TopRowCards.vue";
 import MiddleRowCards from "@/Components/DashboardCards/MiddleRowCards.vue";
 import BottomRowCards from "@/Components/DashboardCards/BottomRowCards.vue";
 import StatisticsCards from "@/Components/DashboardCards/StatisticsCards.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, usePage } from "@inertiajs/vue3";
+import { computed } from 'vue';
 
 // Props from backend
 const props = defineProps({
   questions: Array
 })
+
+// Greetings based on time
+const page = usePage();
+
+const greeting = computed(() => {
+  const hour = new Date().getHours();
+
+  if (hour < 12) {
+    return 'Good Morning';
+  } else if (hour < 17) {
+    return 'Good Afternoon';
+  } else {
+    return 'Good Evening';
+  }
+});
+
+
 
 </script>
 
@@ -23,12 +42,20 @@ const props = defineProps({
                 <!-- Left Side : Main Content Area -->
                 <div class="w-[73%] overflow-hidden">
                     <!-- Page Heading Area -->
-                    <div class="p-6 text-gray-900">You're logged in!</div>
+                    <div class="flex justify-between items-center">
+                        <!-- Greeting Area -->
+                        <div class="py-5 px-2 text-gray-600 text-xl font-semibold">{{ greeting }}, {{ page.props.auth.user.name }}</div>
+                        
+                        <!-- Right Side Area -->
+                        <div class="flex justify-end items-center space-x-2"></div>
+                    </div> 
 
+                    
                     <!-- Statistics Area -->
-                    <StatisticsCards class="mb-5"/>
+                    <StatisticsCards class="mb-5" />
 
                     <!-- Top 3 Cards Area -->
+                    <TopRowCards class="mb-5" />
                      
                     <!-- Middle 3 Cards Area -->
                     <MiddleRowCards />
